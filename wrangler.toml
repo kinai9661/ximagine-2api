@@ -7,15 +7,6 @@ main = "worker.js"
 compatibility_date = "2024-01-01"
 compatibility_flags = ["nodejs_compat"]
 
-# 使用免費方案的預設設定
-# 不設定 limits，讓 Cloudflare 使用預設值
-
-# 環境變量配置（生產環境請修改 API_MASTER_KEY）
-# [vars]
-# API_MASTER_KEY = "your-secure-key-here"
-
-# 帳戶 ID（可選，如果有多個帳戶時需要指定）
-# account_id = "your-account-id"
 
 # 路由配置（可選）
 # [[routes]]
