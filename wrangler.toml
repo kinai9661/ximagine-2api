@@ -1,114 +1,23 @@
-# =================================================================================
-# Ximagine-2API Pro - Cloudflare Workers Configuration
-# Version: 2.3.0 (Chimera Synthesis)
-# =================================================================================
+# Ximagine-2API Pro - Cloudflare Worker 配置
+# 版本: 2.2.0 (Chimera Synthesis)
+# 免費方案相容配置
 
 name = "ximagine-2api"
 main = "worker.js"
 compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
 
-# =================================================================================
-# Account Configuration
-# =================================================================================
-# Uncomment and fill in your account_id (find it in Cloudflare Dashboard)
-# account_id = "your-account-id-here"
+# 使用免費方案的預設設定
+# 不設定 limits，讓 Cloudflare 使用預設值
 
-# =================================================================================
-# Worker Settings
-# =================================================================================
-# Workers can access the internet and bind to other services
-workers_dev = true
+# 環境變量配置（生產環境請修改 API_MASTER_KEY）
+# [vars]
+# API_MASTER_KEY = "your-secure-key-here"
 
-# =================================================================================
-# Environment Variables (Development)
-# =================================================================================
-# These are default values for local development with wrangler dev
-# For production, set these in Cloudflare Dashboard or use wrangler secrets
-[vars]
-API_MASTER_KEY = "1"  # ⚠️ CHANGE THIS IN PRODUCTION!
+# 帳戶 ID（可選，如果有多個帳戶時需要指定）
+# account_id = "your-account-id"
 
-# =================================================================================
-# Production Environment
-# =================================================================================
-# Uncomment to configure production environment
-# [env.production]
-# name = "ximagine-2api"
-# workers_dev = false
-#
-# [env.production.vars]
-# API_MASTER_KEY = "your-production-key"
-
-# =================================================================================
-# Secrets (Sensitive Data)
-# =================================================================================
-# Use wrangler secret put to set these securely:
-#
-# wrangler secret put API_MASTER_KEY
-# wrangler secret put XAI_API_KEY
-#
-# Or set them in Cloudflare Dashboard:
-# Workers & Pages → Your Worker → Settings → Variables and Secrets
-
-# =================================================================================
-# KV Namespaces (Optional - for history storage)
-# =================================================================================
-# Uncomment to enable KV storage for task history
-#
-# [[kv_namespaces]]
-# binding = "HISTORY_KV"
-# id = "your-kv-namespace-id"
-
-# =================================================================================
-# R2 Buckets (Optional - for media storage)
-# =================================================================================
-# Uncomment to enable R2 storage for generated media
-#
-# [[r2_buckets]]
-# binding = "MEDIA_BUCKET"
-# bucket_name = "ximagine-media"
-
-# =================================================================================
-# Routes (Optional - Custom Domain)
-# =================================================================================
-# Uncomment to bind to a custom domain
-#
+# 路由配置（可選）
 # [[routes]]
 # pattern = "api.yourdomain.com/*"
 # zone_name = "yourdomain.com"
-
-# =================================================================================
-# Limits (Free Tier - No CPU limits allowed)
-# =================================================================================
-# Free tier does not support cpu_ms limits
-# Remove [limits] section for free tier deployment
-#
-# For paid plans, you can uncomment:
-# [limits]
-# cpu_ms = 50000  # 50 seconds CPU time
-
-# =================================================================================
-# Build Configuration
-# =================================================================================
-# No build step needed for single-file Worker
-[build]
-command = ""
-
-# =================================================================================
-# Observability
-# =================================================================================
-[observability]
-enabled = true
-head_sampling_rate = 1  # 100% request sampling for logs
-
-# =================================================================================
-# Usage Limits (Free Tier)
-# =================================================================================
-# Cloudflare Workers Free Tier:
-# - 100,000 requests/day
-# - 10ms CPU time per request (can be increased with paid plans)
-# - 1GB KV storage (if enabled)
-#
-# For video generation, consider upgrading to paid plan for:
-# - Longer CPU time
-# - More requests
-# - Priority support
